@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Recettes de Cuisine</title>
+        <style>
+            .delete-button {
+              background-color: red;
+              color: white;
+              border: none;
+              padding: 5px 10px;
+              cursor: pointer;
+            }
+            .success-message {
+      color: green;
+    }
+          </style>
+        <link rel="stylesheet" href="https://unpkg.com/mvp.css">
+    </head>
+    <body>
+        <div id="app">
+            <h1>Recettes de Cuisine</h1>
+            <form @submit.prevent="addRecipe">
+                <label for="name">Nom</label>
+                <input type="text" id="name" v-model="newRecipe.name" required>
+
+                <label for="ingredients">Ingrédients</label>
+                <textarea id="ingredients" v-model="newRecipe.ingredients"
+                    required></textarea>
+
+                <label for="preparation">Préparation</label>
+                <textarea id="preparation" v-model="newRecipe.preparation"
+                    required></textarea>
+
+                <label for="time">Temps de préparation (minutes)</label>
+                <input type="number" id="time" v-model.number="newRecipe.time"
+                    required>
+
+                <label for="people">Nombre de personnes</label>
+                <input type="number" id="people"
+                    v-model.number="newRecipe.people" required>
+
+                <button type="submit">Ajouter la Recette</button>
+                <p id="successMessage" class="success-message" v-if="showSuccessMessage">Votre recette a été bien ajoutée.</p>
+            </form>
+
+            <ul>
+                <li v-for="recipe in recipes" :key="recipe.id">
+                    <h2>{{ recipe.name }}</h2>
+                    <p>Ingrédients : {{ recipe.ingredients }}</p>
+                    <p>Préparation : {{ recipe.preparation }}</p>
+                    <p>Temps de préparation : {{ recipe.time }} minutes</p>
+                    <p>Nombre de personnes : {{ recipe.people }}</p>
+                    <button @click="deleteRecipe(recipe.id)" class="delete-button">Supprimer</button>
+                </li>
+            </ul>
+        </div>
+
+        <script src="https://unpkg.com/vue@3"></script>
+        <script src="app.js" defer></script>
+    </body>
+</html>
